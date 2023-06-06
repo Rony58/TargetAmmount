@@ -1,0 +1,57 @@
+
+
+package com.mycompany.minimumcoins;
+
+import java.util.Scanner;
+
+public class MinimumCoins {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the target amount: ");
+        int targetAmount = scanner.nextInt();
+
+        System.out.print("Enter the number of denominations: ");
+        int numDenominations = scanner.nextInt();
+
+        int[] denominations = new int[numDenominations];
+        int[] quantities = new int[numDenominations];
+
+        System.out.println("Enter the denominations:");
+        for (int i = 0; i < numDenominations; i++) {
+            denominations[i] = scanner.nextInt();
+        }
+
+        System.out.println("Enter the quantities:");
+        for (int i = 0; i < numDenominations; i++) {
+            quantities[i] = scanner.nextInt();
+        }
+
+        int minimumCoins = calculateMinimumCoins(targetAmount, denominations, quantities);
+        if (minimumCoins == Integer.MAX_VALUE) {
+            System.out.println("The target amount cannot be reached with the available coins.");
+        } else {
+            System.out.println("Minimum Number of coins required: " + minimumCoins);
+        }
+    }
+
+    private static int calculateMinimumCoins(int targetAmount, int[] denominations, int[] quantities) {
+        int[] dp = new int[targetAmount + 1];
+        for (int i = 1; i <= targetAmount; i++) {
+            dp[i] = Integer.MAX_VALUE;
+        }
+
+        for (int i = 0; i < denominations.length; i++) {
+            int denomination = denominations[i];
+            int quantity = quantities[i];
+            for (int j = 1; j <= targetAmount; j++) {
+                if (denomination <= j && dp[j - denomination] != Integer.MAX_VALUE && quantity > 0) {
+                    dp[j] = Math.min(dp[j], dp[j - denomination] + 1);
+                    quantity--;
+                }
+            }
+        }
+
+        return dp[targetAmount] == Integer.MAX_VALUE ? 5 : dp[targetAmount];
+    }
+}
