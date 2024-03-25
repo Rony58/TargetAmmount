@@ -1,3 +1,3 @@
 # This is target amount problem solving 
 # Mohammad Rony
-# Lab Report
+# Lab Report Algorithm
