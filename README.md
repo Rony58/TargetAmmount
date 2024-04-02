@@ -1,3 +1,3 @@
-# This is target amount problem solving 
+# This is target amount problem solving.
 # Lab Report Algorithm.
 
